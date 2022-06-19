@@ -9,89 +9,61 @@ namespace desafio_brq
             string nome, sexo="", categoria = "", riscos = "", recomendacao="";
             double altura, peso, imc;
             int idade ;
-
+           
             
             //para o usuario inserir 
             Console.WriteLine("Insira seu nome:"); nome = Console.ReadLine();
-            Console.WriteLine("Insira seu sexo:\n F-Feminino\n M-Masculino"); Console.ReadLine();
+            Console.WriteLine("Insira seu sexo:\n F-Feminino\n M-Masculino"); sexo=Console.ReadLine();
+            //while para aceitar somente F ou M 
+            while ((sexo.ToUpper() != "F" && sexo.ToUpper() != "M")) 
+            { 
+               Console.WriteLine("Valor invalido, insira novamente:\nApenas M ou F");
+               sexo=Console.ReadLine();
+               
+            }
            
             Console.WriteLine("Insira sua idade:"); int.TryParse(Console.ReadLine(), out idade);
             // do while usado para validar a idade
-            //enquanto while for maior que 0 verificar se esta dentro dos criterios
+            //enquanto while for maior igual a 1 verificar se esta dentro dos criterios
             do
             {
-                //if para verificar os criterios e entrar no while
-                if (idade <= 1)
-                {
-                    while(idade<=1)
+                    while(idade<=1 || idade >= 150)
                     {
                         Console.WriteLine("Valor invalido, digite novamente:");
                         int.TryParse(Console.ReadLine(), out idade);
                     }
-                }
-                if(idade >=150)
-                {
-                    while (idade >= 150)
-                    {
-                        Console.WriteLine("Valor invalido, digite novamente:");
-                        int.TryParse(Console.ReadLine(), out idade);
-                    }
-                }
                 break;
-            } while (idade >0);
+            } while (idade >=1);
 
 
             Console.WriteLine("Insira sua altura:");  double.TryParse(Console.ReadLine(),out altura);
             //do while usado para validar a altura 
             do
             {
-                //if para verificar os criterios e entrar no while
-                if (altura <= 1)
+                while (altura <= 1 || altura >= 2.5)
                 {
-                    while (altura <= 1)
-                    {
-                        Console.WriteLine("Valor invalido, digite novamente:");
-                        double.TryParse(Console.ReadLine(), out altura);
-                    }
-                }
-                if (altura >= 2.50)
-                {
-                    while (altura >= 2.50)
-                    {
-                        Console.WriteLine("Valor invalido, digite novamente:");
-                        double.TryParse(Console.ReadLine(), out altura);
-                    }
+                    Console.WriteLine("Valor invalido, digite novamente:");
+                    double.TryParse(Console.ReadLine(), out altura);
                 }
                 break;
-            } while (altura > 0);
+            } while (idade >= 1);
+       
 
             Console.WriteLine("Insira seu peso:"); double.TryParse(Console.ReadLine(), out peso);
-            //do while usado para validar o peso
             do
             {
-                //if para verificar os criterios e entrar no while
-                if (peso <= 1)
+                while (peso <= 1 || peso >= 600)
                 {
-                    while (peso <= 1)
-                    {
-                        Console.WriteLine("Valor invalido, digite novamente:");
-                        double.TryParse(Console.ReadLine(), out peso);
-                    }
-                }
-                if (peso >= 600)
-                {
-                    while (peso >= 600)
-                    {
-                        Console.WriteLine("Valor invalido, digite novamente:");
-                        double.TryParse(Console.ReadLine(), out peso);
-                    }
+                    Console.WriteLine("Valor invalido, digite novamente:");
+                    double.TryParse(Console.ReadLine(), out peso);
                 }
                 break;
-            } while (peso > 0);
+            } while (peso >= 1);
 
             // calculo do imc 
             imc = peso / Math.Pow(altura, 2);
-           
+
+            Console.WriteLine("--------------------------------------------");
             //Resultado do diagostico
             Console.WriteLine("DIAGNOSTICO PREVIO");
             Console.WriteLine($"Nome: {nome}\nSexo: {MostrarSexo(ref sexo)}\nIdade: {idade}\nAltura: {altura}\nPeso: {peso}\nCategoria: {MostrarCategoria(ref categoria, idade)}\n\n\nResultado desejado: entre 20 e 24\n\nResultado IMC : {imc.ToString("F")}\n\nRiscos: {MostrarRiscos(ref imc, riscos)}\n\nRecomendacao: {MostrarRecomendacoes(ref imc, recomendacao)}");
@@ -106,25 +78,19 @@ namespace desafio_brq
         /// <returns>retorna o sexo1</returns>
         static string MostrarSexo( ref string sexo1) 
         {
-            switch (sexo1)
+            
+            switch (sexo1.ToUpper())
             {
-                case "f" :
-                    sexo1 = "Feminino";
-                    break;
-                case "F":
-                    sexo1 = "Feminino";
+               case "F" :
+                   sexo1= "Feminino";
                     break;
                 case "M":
                     sexo1 = "Masculino";
                     break;
-                case "m":
-                    sexo1 = "Masculino";
-                    break;
-
+              
             }
             return sexo1;
         }
-
 
        
         /// <summary>
@@ -156,11 +122,8 @@ namespace desafio_brq
             {
                 riscos = "O obeso mórbido vive menos, tem alto risco de mortalidade geral por diversas causas";
             }
-            
-           
             return riscos;
         }
-
 
         
         /// <summary>
@@ -171,7 +134,6 @@ namespace desafio_brq
         /// <returns>retorna a categoria</returns>
         static string MostrarCategoria(ref string categoria, int idade)
         {
-
             if (idade < 12)
             {
                 categoria = "Infantil";
@@ -187,7 +149,6 @@ namespace desafio_brq
             else if (idade > 65)
             {
                 categoria = "Idoso";
-
             }
             return categoria;
         }
@@ -201,7 +162,6 @@ namespace desafio_brq
         /// <returns>retorna a recomendação</returns>
         static string MostrarRecomendacoes(ref double imc, string recomendacao)
         {
-
             if (imc < 20)
             {
                 recomendacao = " Inclua carboidratos simples em sua dieta, além de proteínas - indispensáveis para ganho de massa magra. Procure um profissional.";
