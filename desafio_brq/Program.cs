@@ -6,16 +6,88 @@ namespace desafio_brq
     {
         static void Main(string[] args)
         {    //variaveis usadas
-            string nome, sexo, categoria = "", riscos = "", recomendacao="";
+            string nome, sexo="", categoria = "", riscos = "", recomendacao="";
             double altura, peso, imc;
-            int idade=0 ;
-           
+            int idade ;
+
+            
             //para o usuario inserir 
             Console.WriteLine("Insira seu nome:"); nome = Console.ReadLine();
-            Console.WriteLine("Insira seu sexo:\n F-Feminino\n M-Masculino"); sexo = Console.ReadLine();
-            Console.WriteLine("Insira sua idade:"); idade = int.Parse(Console.ReadLine());
-            Console.WriteLine("Insira sua altura:"); altura = double.Parse(Console.ReadLine());
-            Console.WriteLine("Insira seu peso:"); peso = double.Parse(Console.ReadLine());
+            Console.WriteLine("Insira seu sexo:\n F-Feminino\n M-Masculino"); Console.ReadLine();
+           
+            Console.WriteLine("Insira sua idade:"); int.TryParse(Console.ReadLine(), out idade);
+            // do while usado para validar a idade
+            //enquanto while for maior que 0 verificar se esta dentro dos criterios
+            do
+            {
+                //if para verificar os criterios e entrar no while
+                if (idade <= 1)
+                {
+                    while(idade<=1)
+                    {
+                        Console.WriteLine("Valor invalido, digite novamente:");
+                        int.TryParse(Console.ReadLine(), out idade);
+                    }
+                }
+                if(idade >=150)
+                {
+                    while (idade >= 150)
+                    {
+                        Console.WriteLine("Valor invalido, digite novamente:");
+                        int.TryParse(Console.ReadLine(), out idade);
+                    }
+                }
+                break;
+            } while (idade >0);
+
+
+            Console.WriteLine("Insira sua altura:");  double.TryParse(Console.ReadLine(),out altura);
+            //do while usado para validar a altura 
+            do
+            {
+                //if para verificar os criterios e entrar no while
+                if (altura <= 1)
+                {
+                    while (altura <= 1)
+                    {
+                        Console.WriteLine("Valor invalido, digite novamente:");
+                        double.TryParse(Console.ReadLine(), out altura);
+                    }
+                }
+                if (altura >= 2.50)
+                {
+                    while (altura >= 2.50)
+                    {
+                        Console.WriteLine("Valor invalido, digite novamente:");
+                        double.TryParse(Console.ReadLine(), out altura);
+                    }
+                }
+                break;
+            } while (altura > 0);
+
+            Console.WriteLine("Insira seu peso:"); double.TryParse(Console.ReadLine(), out peso);
+            //do while usado para validar o peso
+            do
+            {
+                //if para verificar os criterios e entrar no while
+                if (peso <= 1)
+                {
+                    while (peso <= 1)
+                    {
+                        Console.WriteLine("Valor invalido, digite novamente:");
+                        double.TryParse(Console.ReadLine(), out peso);
+                    }
+                }
+                if (peso >= 600)
+                {
+                    while (peso >= 600)
+                    {
+                        Console.WriteLine("Valor invalido, digite novamente:");
+                        double.TryParse(Console.ReadLine(), out peso);
+                    }
+                }
+                break;
+            } while (peso > 0);
 
             // calculo do imc 
             imc = peso / Math.Pow(altura, 2);
@@ -26,24 +98,41 @@ namespace desafio_brq
            
         }
 
-        //funçao feita a fim de deixar o codigo mais organizado
-        // usei o operador ref no parametro e na chamada da funcao para fazer uma passagem por referencia 
+
+        /// <summary>
+        ///  feita a fim de deixar o codigo mais organizado e retornar o sexo,  usei o operador ref no parametro e na chamada da funcao para fazer uma passagem por referencia 
+        /// </summary>
+        /// <param name="sexo1">coletar o valor de sexo para retornar pro main</param>
+        /// <returns>retorna o sexo1</returns>
         static string MostrarSexo( ref string sexo1) 
         {
-            
-            if (sexo1=="f" || sexo1== "F")
+            switch (sexo1)
             {
-               sexo1="Feminino";
-            }
-            else if (sexo1=="m" || sexo1=="M")
-            {
-                sexo1="Masculino";
+                case "f" :
+                    sexo1 = "Feminino";
+                    break;
+                case "F":
+                    sexo1 = "Feminino";
+                    break;
+                case "M":
+                    sexo1 = "Masculino";
+                    break;
+                case "m":
+                    sexo1 = "Masculino";
+                    break;
+
             }
             return sexo1;
         }
 
-        //funçao para Mostrar riscos feita a fim de deixar o codigo mais organizado
-        // usei o operador ref no parametro e na chamada da funcao para fazer uma passagem por referencia 
+
+       
+        /// <summary>
+        /// funçao para Mostrar riscos feita a fim de deixar o codigo mais organizado, usei o operador ref no parametro e na chamada da funcao para fazer uma passagem por referencia 
+        /// </summary>
+        /// <param name="imc">para comparar o imc com os valores dados </param>
+        /// <param name="riscos">variavel para armazenar a mensagem(riscos)</param>
+        /// <returns>retorna os riscos para mostrar a mensagem</returns>
         static string MostrarRiscos(ref double imc, string riscos)
         {
            
@@ -72,8 +161,14 @@ namespace desafio_brq
             return riscos;
         }
 
-        //função para mostrar a categoria
-        // usei o operador ref no parametro e na chamada da funcao para fazer uma passagem por referencia 
+
+        
+        /// <summary>
+        /// função para mostrar categoria, usei o operador ref no parametro e na chamada da funcao para fazer uma passagem por referencia 
+        /// </summary>
+        /// <param name="categoria">variavel para armazenar a mensagem(categoria)</param>
+        /// <param name="idade">para comparar a idade com os valores dados</param>
+        /// <returns>retorna a categoria</returns>
         static string MostrarCategoria(ref string categoria, int idade)
         {
 
@@ -97,8 +192,13 @@ namespace desafio_brq
             return categoria;
         }
 
-        //funçãp para mostrar as recomendações 
-        //segui o mesmo raciocinio das funções anteriores, usando o ref para fazer referencia
+        
+        /// <summary>
+        /// funçãp para mostrar as recomendações, segui o mesmo raciocinio das funções anteriores, usando o ref para fazer referencia
+        /// </summary>
+        /// <param name="imc">variavel feita para comparar o imc com os valores</param>
+        /// <param name="recomendacao">para armazenar a mensagem(recomendações)</param>
+        /// <returns>retorna a recomendação</returns>
         static string MostrarRecomendacoes(ref double imc, string recomendacao)
         {
 
